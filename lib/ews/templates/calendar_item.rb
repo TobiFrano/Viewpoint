@@ -39,7 +39,6 @@ module Viewpoint::EWS
             structure[:saved_item_folder_id] = {id: saved_item_folder_id}
           end
         end
-
         structure[:items] = [{calendar_item: to_ews_item}]
         structure
       end
@@ -65,6 +64,11 @@ module Viewpoint::EWS
                 item_parameters[key] = {text: value.respond_to?(:iso8601) ? value.iso8601 : value}
               when :body
                 item_parameters[key] = {body_type: self.body_type || 'Text', text: value.to_s}
+=begin
+              when :recurrence
+                item_parameters[key] = {weekly_recurrence: {interval: "1",days_of_week:"Monday Wednesday Friday"}, no_end_recurrence:{start_date: {text: '2016-12-14-15:25'} }}
+=end
+
               else
                 item_parameters[key] = value
             end

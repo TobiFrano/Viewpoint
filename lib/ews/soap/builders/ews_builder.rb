@@ -891,6 +891,10 @@ module Viewpoint::EWS::SOAP
       nbuild[NS_EWS_TYPES].NumberOfOccurrences(count)
     end
 
+    def days_of_week!(value)
+      nbuild[NS_EWS_TYPES].DaysOfWeek(value)
+    end
+
 
     def task!(item)
       nbuild[NS_EWS_TYPES].Task {
@@ -1027,7 +1031,7 @@ module Viewpoint::EWS::SOAP
     end
 
     def start_date!(sd)
-      nbuild[NS_EWS_TYPES].StartDate sd[:text]
+      nbuild[NS_EWS_TYPES].StartDate(sd[:text])
     end
 
     def due_date!(dd)
