@@ -42,8 +42,8 @@ module Viewpoint::EWS::SOAP
       @server_version = opts[:server_version] ? opts[:server_version] : VERSION_2010
       @auto_deepen    = true
       @no_auto_deepen_behavior = :raise
-      @impersonation_type = ""
-      @impersonation_address = ""
+      @impersonation_type = opts[:impersonation_type] ? opts[:impersonation_type] : ""
+      @impersonation_address = opts[:impersonation_address] ? opts[:impersonation_address] : ""
     end
 
     def delete_attachment
