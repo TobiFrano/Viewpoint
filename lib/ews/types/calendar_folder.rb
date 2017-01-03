@@ -46,5 +46,9 @@ module Viewpoint::EWS::Types
       end
     end
 
+    def delete_item(opts)
+      ews.delete_item(opts)
+    end
+
   end
 end
