@@ -8,6 +8,7 @@ module Viewpoint::EWS::Types
     # @param [DateTime] start_date the time to start fetching Items from
     # @param [DateTime] end_date the time to stop fetching Items from
     def items_between(start_date, end_date, opts={})
+      binding.pry
       items do |obj|
         obj.restriction = { :and =>
           [
@@ -25,6 +26,14 @@ module Viewpoint::EWS::Types
             }
           ]
         }
+      end
+    end
+
+
+
+    def items_between_including_recurring_occurrences(start_date, end_date, opts={})
+      items_with_calendar_view do |obj|
+          obj.calendar_view = { :start_date =>start_date, :end_date =>end_date}
       end
     end
 

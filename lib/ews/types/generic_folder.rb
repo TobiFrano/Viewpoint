@@ -80,6 +80,15 @@ module Viewpoint::EWS::Types
       items_parser resp
     end
 
+    def items_with_calendar_view(opts = {})
+      args = items_args(opts.clone)
+      obj = OpenStruct.new(opts: args, calendar_view: {})
+      yield obj if block_given?
+      merge_calendar_view! obj
+      resp = ews.find_item(args)
+      items_parser resp
+    end
+
     # Fetch items since a give DateTime
     # @param [DateTime] date_time the time to fetch Items since.
     def items_since(date_time, opts = {})
@@ -396,6 +405,19 @@ module Viewpoint::EWS::Types
         }
       elsif !obj.restriction.empty?
         obj.opts[:restriction] = obj.restriction
+      end
+    end
+
+    def merge_calendar_view!(obj, merge_type = :and)
+      if obj.opts[:calendar_view] && !obj.opts[:calendar_view].empty? && !obj.calendar_view.empty?
+        obj.opts[:calendar_view] = {
+            merge_type => [
+                obj.opts.delete(:calendar_view),
+                obj.calendar_view
+            ]
+        }
+      elsif !obj.calendar_view.empty?
+        obj.opts[:calendar_view] = obj.calendar_view
       end
     end
 
