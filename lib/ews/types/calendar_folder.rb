@@ -8,7 +8,6 @@ module Viewpoint::EWS::Types
     # @param [DateTime] start_date the time to start fetching Items from
     # @param [DateTime] end_date the time to stop fetching Items from
     def items_between(start_date, end_date, opts={})
-      binding.pry
       items do |obj|
         obj.restriction = { :and =>
           [
