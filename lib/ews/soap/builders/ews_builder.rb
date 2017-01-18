@@ -874,6 +874,14 @@ module Viewpoint::EWS::SOAP
         }
       }
     end
+    def absolute_yearly_recurrence!(item)
+      nbuild[NS_EWS_TYPES].AbsoluteYearlyRecurrence {
+        item.each_pair { |k, v|
+          self.send("#{k}!", v)
+        }
+      }
+    end
+
 
     def relative_monthly_recurrence!(item)
       nbuild[NS_EWS_TYPES].RelativeMonthlyRecurrence {
@@ -927,6 +935,9 @@ module Viewpoint::EWS::SOAP
       nbuild[NS_EWS_TYPES].DayOfMonth(value)
     end
 
+    def month!(value)
+      nbuild[NS_EWS_TYPES].Month(value)
+    end
 
 
     def task!(item)
