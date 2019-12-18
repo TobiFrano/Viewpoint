@@ -203,14 +203,13 @@ module Viewpoint::EWS::SOAP
     # @option opts [Boolean] :raw_response if true do not parse and return
     #   the raw response string.
     def do_soap_request(soapmsg, opts = {})
-      if soapmsg.to_s.include? "CreateItem"
-        Rails.logger.info <<-EOF.gsub(/^ {8}/, '')
-          Sending SOAP Request:
-          ----------------
-          #{soapmsg}
-          ----------------
-        EOF
-      end
+      @log.debug <<-EOF.gsub(/^ {8}/, '')
+        Sending SOAP Request:
+        ----------------
+        #{soapmsg}
+        ----------------
+      EOF
+      Rails.logger.info "Creating Exchange Appointment: #{soapmsg}" if soapmsg.to_s.include? "CreateItem"
       connection.dispatch(self, soapmsg, opts)
     end
 
