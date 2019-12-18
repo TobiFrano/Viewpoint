@@ -209,7 +209,6 @@ module Viewpoint::EWS::SOAP
         #{soapmsg}
         ----------------
       EOF
-      Rails.logger.info "Creating Exchange Appointment: #{soapmsg}" if soapmsg.to_s.include? "CreateItem"
       connection.dispatch(self, soapmsg, opts)
     end
 
